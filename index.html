@@ -3,18 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VPNLike - سرویس VPN اختصاصی</title>
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>سرویس اینترنت پرسرعت و ایمن</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
-        /* --- تعریف فونت‌ها --- */
+        /* --- Fonts --- */
         @font-face {
             font-family: 'IRANSansWeb';
             src: url('fonts/IRANSansWeb.woff2') format('woff2'),
                  url('fonts/IRANSansWeb.woff') format('woff'),
                  url('fonts/IRANSansWeb.ttf') format('truetype');
-            font-weight: 400; /* normal */
+            font-weight: 400;
             font-style: normal;
             font-display: swap;
         }
@@ -24,572 +24,564 @@
             src: url('fonts/IRANSansWeb_Bold.woff2') format('woff2'),
                  url('fonts/IRANSansWeb_Bold.woff') format('woff'),
                  url('fonts/IRANSansWeb_Bold.ttf') format('truetype');
-            font-weight: 700; /* bold */
+            font-weight: 700;
             font-style: normal;
             font-display: swap;
         }
 
-        /* --- استایل‌های اصلی و پایه --- */
+        /* --- Variables --- */
         :root {
-            --bg-color: #f7f8fc;
-            --card-bg-color: #ffffff;
-            --primary-text-color: #2c3e50;
-            --secondary-text-color: #7f8c8d;
-            --primary-blue: #3498db;
-            --light-blue-bg: #eaf5fc;
-            --primary-purple: #8e44ad;
-            --primary-orange: #f39c12;
-            --border-color: #ecf0f1;
-            --shadow-color: rgba(44, 62, 80, 0.1);
-            --success-color: #27ae60;
-            --danger-color: #e74c3c;
+            --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --secondary-gradient: linear-gradient(135deg, #ff9a9e 0%, #fecfef 99%, #fecfef 100%);
+            --glass-bg: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            --text-main: #ffffff;
+            --text-muted: #cbd5e0;
+            --accent-color: #00d2ff;
+            --accent-glow: 0 0 20px rgba(0, 210, 255, 0.6);
         }
 
+        /* --- Reset & Base --- */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            outline: none;
         }
 
         body {
             font-family: 'IRANSansWeb', sans-serif;
-            background-color: var(--bg-color);
-            color: var(--primary-text-color);
-            text-align: right;
-            line-height: 1.8;
-        }
-
-        .container {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-
-       /* --- START: بنر تخفیف بالای صفحه (نسخه جدید و جذاب) --- */
-.discount-banner {
-    position: fixed; /* <<-- تغییر اصلی اینجاست */
-    top: 0;
-    left: 0;
-    right: 0;
-    width: 100%;      /* <<-- این خط اضافه شده است */
-    z-index: 1000;
-    background: linear-gradient(90deg, #f39c12, #e74c3c);
-    color: #fff;
-    padding: 12px 20px;
-    font-size: 1.3rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-    animation: pulse-bg 3s infinite;
-    text-align: center;
-}
-
-        .hero-section {
-    margin-top: 50px; /* این فاصله باعث می‌شود هدر زیر بنر قرار نگیرد */
-}
-
-        /* انیمیشن برای تغییر آرام پس‌زمینه */
-        @keyframes pulse-bg {
-            0% { background: linear-gradient(90deg, #f39c12, #e74c3c); }
-            50% { background: linear-gradient(90deg, #e67e22, #c0392b); }
-            100% { background: linear-gradient(90deg, #f39c12, #e74c3c); }
-        }
-        
-        /* دکمه بستن بنر */
-        .discount-banner .close-banner {
-            background: none;
-            border: none;
-            color: #fff;
-            font-size: 1.8rem;
-            cursor: pointer;
-            line-height: 1;
-            padding: 0 5px;
-            opacity: 0.8;
-            transition: opacity 0.3s ease, transform 0.3s ease;
-            position: absolute;
-            left: 15px; /* برای RTL، در سمت چپ قرار می‌گیرد */
-            top: 50%;
-            transform: translateY(-50%);
-        }
-
-        .discount-banner .close-banner:hover {
-            opacity: 1;
-            transform: translateY(-50%) scale(1.1);
-        }
-
-        /* استایل‌های ریسپانسیو برای بنر */
-        @media (max-width: 768px) {
-            .discount-banner {
-                font-size: 1.3rem; /* فونت کوچکتر در موبایل */
-                padding-right: 35px; /* ایجاد فضا برای متن */
-                padding-left: 35px;
-            }
-            .discount-banner .close-banner {
-                font-size: 1.5rem;
-                left: 8px;
-            }
-        }
-        /* --- END: بنر تخفیف --- */
-
-
-        /* --- هدر --- */
-        .hero-section {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-            padding: 50px 20px;
-            background-color: var(--card-bg-color);
-        }
-
-        .hero-logo {
-            width: 120px;
-            height: auto;
-            margin-bottom: 20px;
-        }
-
-        .hero-section h1 { font-size: 2.8rem; font-weight: 700; margin-bottom: 15px; }
-        .hero-section h1 span { color: var(--primary-blue); }
-        .hero-section p { font-size: 1.1rem; max-width: 600px; color: var(--secondary-text-color); margin-bottom: 30px; }
-        
-        .hero-actions { display: flex; flex-wrap: wrap; gap: 15px; justify-content: center; }
-        
-        .btn {
-            padding: 8px 10px; border: none; border-radius: 10px; font-family: 'IRANSansWeb', sans-serif;
-            font-size: 0.9rem; cursor: pointer; text-decoration: none;
-            transition: all 0.3s ease; display: flex; align-items: center; justify-content: center; gap: 10px;
-        }
-        
-        .btn-blue {background-color: #007bff; color: #fff; }
-        .btn-blue:hover { background-color: #2980b9; transform: translateY(-2px); }
-        
-        .btn-purple { background-color: #4f46e5; color: #fff; }
-        .btn-purple:hover { background-color: #732d91; transform: translateY(-2px); }
-
-        .btn-orange { background-color: #f18e04; color: #fff; }
-        .btn-orange:hover { background-color: #e67e22; transform: translateY(-2px); }
-
-        .btn-green { background-color: #27ae60; color: #fff; }
-        .btn-green:hover { background-color: #1d8549; transform: translateY(-2px); }
-
-        /* --- کارت‌های اطلاعاتی (طراحی جدید) --- */
-        .info-grid { 
-            display: grid; 
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
-            gap: 25px; 
-            margin-top: 50px; 
-        }
-
-        .info-card {
-            background: var(--card-bg-color); 
-            padding: 30px 25px; 
-            border-radius: 18px; 
-            border: 1px solid var(--border-color); 
-            box-shadow: 0 5px 15px var(--shadow-color); 
-            text-align: center;
-            text-decoration: none;
-            color: var(--primary-text-color);
-            display: flex;
-            flex-direction: column;
-            transition: all 0.3s ease-in-out;
-        }
-
-        .info-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 10px 25px rgba(44, 62, 80, 0.15);
-            border-color: var(--primary-blue);
-        }
-
-        .info-card .icon { 
-            width: 65px;
-            height: 65px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 20px;
-            font-size: 2.2rem;
-            transition: transform 0.3s ease;
-        }
-        
-        .info-card:hover .icon {
-            transform: scale(1.1);
-        }
-
-        /* رنگ‌بندی آیکون‌ها */
-        .info-grid .info-card:nth-child(1) .icon { background-color: #fff4e0; color: var(--primary-orange); } /* جایزه */
-        .info-grid .info-card:nth-child(2) .icon { background-color: #eaf5fc; color: var(--primary-blue); } /* راهنما */
-        .info-grid .info-card:nth-child(3) .icon { background-color: #e8f6ef; color: var(--success-color); } /* پشتیبانی */
-
-        .info-card h3 { 
-            font-size: 1.3rem; 
-            margin-bottom: 10px; 
-        }
-
-        .info-card p { 
-            color: var(--secondary-text-color); 
-            font-size: 0.95rem; 
-            flex-grow: 1; /* باعث می‌شود پاراگراف فضای خالی را پر کند */
-            margin-bottom: 20px;
-        }
-        
-        .card-action {
-            font-weight: 700;
-            color: var(--primary-blue);
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .info-card:hover .card-action {
-            opacity: 1;
-        }
-
-
-        /* --- عناوین بخش‌ها --- */
-        .section-title { text-align: center; margin-top: 60px; margin-bottom: 40px; }
-        .section-title h2 { font-size: 1.8rem; margin-bottom: 10px; }
-        .section-title p { color: var(--secondary-text-color); font-size: 0.9rem; }
-
-        /* --- کارت‌های قیمت --- */
-        .pricing-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; justify-content: center; align-items: start; }
-        
-        .single-item-grid { max-width: 450px; margin: 0 auto; } 
-
-        .product-card {
-            background: var(--card-bg-color); border: 1px solid var(--border-color); border-radius: 18px; padding: 25px;
-            text-align: center; box-shadow: 0 5px 25px var(--shadow-color); transition: transform 0.3s ease, box-shadow 0.3s ease;
-            display: flex; flex-direction: column; position: relative; overflow: hidden; height: 100%;
-        }
-        .product-card:hover { transform: translateY(-8px); box-shadow: 0 10px 30px rgba(44, 62, 80, 0.15); }
-
-        /* FIX: New Ribbon Badge Style */
-        .badge-ribbon {
-            position: absolute; top: -5px; right: -5px; /* RTL positioning */
-            width: 110px; height: 110px; display: flex; align-items: center; justify-content: center; overflow: hidden;
-        }
-        .badge-ribbon span {
-            position: absolute; width: 150%; background: var(--primary-purple); color: #fff;
-            text-align: center; font-weight: 700; font-size: 14px; padding: 5px 0;
-            transform: rotate(45deg) translateY(-20px); box-shadow: 0 5px 10px rgba(0,0,0,0.15);
-        }
-        
-        .product-card .plan-name {
-            font-size: 2.5rem; font-weight: 700; color: var(--primary-text-color); margin-bottom: 25px; margin-top: 20px;
-        }
-        .product-card .plan-name span {
-            font-size: 1.1rem; color: var(--secondary-text-color); font-weight: 400;
-        }
-        
-        .price-wrapper { 
-            margin-top: auto; margin-bottom: 25px; display: flex; flex-direction: column;
-            justify-content: center; align-items: center; gap: 5px;
-        }
-        .price-wrapper .old-price { 
-            font-size: 1.1rem; color: var(--danger-color); text-decoration: line-through;
-        }
-        .price-wrapper .new-price { 
-            font-size: 2rem; font-weight: 700; color: var(--primary-blue); 
-        }
-        .new-price .small-text { font-size: 1rem; }
-        
-        .product-card .features { list-style: none; margin-bottom: 30px; text-align: right; flex-grow: 1; }
-        .product-card .features li { 
-            margin-bottom: 8px; 
-            font-size: 14px; 
-        }
-        .product-card .features li::before { content: '✓'; color: var(--success-color); margin-left: 10px; font-weight: bold; }
-        .special-feature { color: var(--primary-orange); font-weight: 700; }
-        
-        .country-flags { display: flex; justify-content: center; gap: 2px; margin-bottom: 25px; }
-        .country-flags img { width: 32px; height: auto; border-radius: 50%; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
-
-        /* --- فوتر (بخش پایانی) --- */
-        .site-footer { background-color: var(--card-bg-color); padding: 60px 20px; margin-top: 60px; text-align: center; }
-        .footer-tag { display: inline-block; background-color: var(--light-blue-bg); color: var(--primary-blue); padding: 8px 20px; border-radius: 20px; font-weight: 700; margin-bottom: 30px; }
-        .site-footer h2 { font-size: 2.5rem; margin-bottom: 20px; }
-        .site-footer .description { max-width: 600px; margin: 0 auto 40px; color: var(--secondary-text-color); line-height: 2; }
-        .footer-features { list-style: none; text-align: right; max-width: 500px; margin: 0 auto; }
-        .footer-features li { padding: 10px 35px 10px 0; position: relative; font-size: 1.05rem; }
-        .footer-features li::before {
-            content: '✓'; color: #fff; background-color: var(--primary-blue); width: 24px; height: 24px;
-            border-radius: 50%; display: inline-block; text-align: center; line-height: 24px; position: absolute;
-            right: 0; top: 50%; transform: translateY(-50%);
-        }
-        
-        /* --- Responsive --- */
-        @media (max-width: 768px) {
-            .hero-section h1 { font-size: 2rem; }
-            .section-title h2 { font-size: 1.4rem; }
-            .product-card { padding: 15px; }
-            .product-card .plan-name { font-size: 2rem; margin-bottom: 15px; }
-            .price-wrapper .new-price { font-size: 1.6rem; }
-            .price-wrapper .old-price { font-size: 1.1rem; }
-            .info-grid, .pricing-grid { grid-template-columns: 1fr; } 
-        }
-
-        /* --- START: REVISED Sticky Banner Styles (V3 with Delay) --- */
-        .sticky-bottom-banner {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            background-color: #facc15; /* زرد مدرن و جذاب */
-            color: #1f2937; /* خاکستری تیره برای متن */
-            padding: 12px 15px;
-            box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.1);
-            z-index: 10000;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-family: 'IRANSansWeb', sans-serif;
-            direction: rtl;
-            opacity: 0;
-            transform: translateY(150%);
-            pointer-events: none; /* غیرقابل کلیک در حالت مخفی */
-            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.6s ease-out; /* انیمیشن نرم‌تر */
-        }
-        .sticky-bottom-banner.is-visible {
-            opacity: 1;
-            transform: translateY(0);
-            pointer-events: auto; /* قابل کلیک در حالت نمایش */
-        }
-        .sticky-bottom-banner .banner-wrapper {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            width: 100%;
-            gap: 15px;
+            background-color: #0f172a;
+            color: var(--text-main);
+            overflow-x: hidden;
+            min-height: 100vh;
             position: relative;
         }
-        .sticky-bottom-banner .banner-content {
+
+        /* --- Animated Background --- */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: radial-gradient(circle at 50% 50%, #1a202c, #000000);
+            overflow: hidden;
+        }
+
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.6;
+            animation: float 10s infinite ease-in-out alternate;
+        }
+
+        .orb-1 {
+            width: 400px;
+            height: 400px;
+            background: #764ba2;
+            top: -100px;
+            left: -100px;
+            animation-duration: 15s;
+        }
+
+        .orb-2 {
+            width: 500px;
+            height: 500px;
+            background: #667eea;
+            bottom: -150px;
+            right: -100px;
+            animation-duration: 20s;
+        }
+
+        .orb-3 {
+            width: 300px;
+            height: 300px;
+            background: #ff512f;
+            top: 40%;
+            left: 30%;
+            opacity: 0.4;
+            animation-duration: 12s;
+        }
+
+        @keyframes float {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(30px, 50px); }
+        }
+
+        a { text-decoration: none; color: inherit; transition: 0.3s; }
+        ul { list-style: none; }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* --- Header / Hero --- */
+        header {
+            padding: 40px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .brand-logo {
+            width: 60px;
+            filter: drop-shadow(0 0 10px rgba(255,255,255,0.5));
+        }
+
+        .hero {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 80px 20px 60px;
+            position: relative;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            background: linear-gradient(to right, #ffffff, #a5b4fc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            color: var(--text-muted);
+            max-width: 700px;
+            margin-bottom: 40px;
+            line-height: 1.8;
+            animation: fadeInUp 1s ease-out 0.2s backwards;
+        }
+
+        .cta-group {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+            animation: fadeInUp 1s ease-out 0.4s backwards;
+        }
+
+        .btn {
+            padding: 14px 35px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            position: relative;
+            overflow: hidden;
             display: flex;
             align-items: center;
             gap: 10px;
-            flex-grow: 1;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
-        .sticky-bottom-banner .banner-icon { font-size: 1.8rem; display: block; }
-        .sticky-bottom-banner .banner-text { text-align: right; }
-        .sticky-bottom-banner .banner-text h4 { margin: 0; font-weight: 700; font-size: 0.95rem; color: #3b454f; }
-        .sticky-bottom-banner .banner-text p { margin: 0; font-size: 0.8rem; color: #4b5563; display: none; }
-        .sticky-bottom-banner .banner-cta-btn {
-            background-color: #1f2937; color: #fff; padding: 10px 18px; border-radius: 8px; text-decoration: none;
-            font-weight: 700; white-space: nowrap; transition: background-color 0.3s ease, transform 0.2s ease;
-            flex-shrink: 0; display: inline-flex; align-items: center; gap: 8px; font-size: 0.9rem;
-        }
-        .sticky-bottom-banner .banner-cta-btn i { font-size: 1rem; }
-        .sticky-bottom-banner .banner-cta-btn:hover { background-color: #111827; transform: scale(1.05); }
-        .sticky-bottom-banner .close-banner-btn {
-            background: transparent; border: none; color: #4b5563; font-size: 1.1rem; line-height: 1; cursor: pointer;
-            padding: 0; transition: transform 0.3s ease, color 0.3s ease; position: absolute; top: -11px; left: -11px;
-        }
-        .sticky-bottom-banner .close-banner-btn:hover { transform: rotate(90deg); color: #111827; }
 
-        @media (min-width: 769px) {
-            .sticky-bottom-banner {
-                width: auto; max-width: 420px; left: auto; right: 30px; bottom: 30px; border-radius: 16px;
-                padding: 25px; flex-direction: column; align-items: flex-start; text-align: right;
-            }
-            .sticky-bottom-banner .banner-wrapper { flex-direction: column; align-items: flex-start; gap: 12px; }
-            .sticky-bottom-banner .banner-content { flex-direction: row; gap: 15px; }
-            .sticky-bottom-banner .banner-icon { font-size: 2.2rem; }
-            .sticky-bottom-banner .banner-text p { display: block; }
-            .sticky-bottom-banner .banner-cta-btn { width: 100%; justify-content: center; padding: 12px; font-size: 1rem; }
-            .sticky-bottom-banner .close-banner-btn { position: absolute; top: -15px; left: -11px; font-size: 1.3rem; }
+        .btn-primary {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #fff;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
         }
-        /* --- END: REVISED Sticky Banner Styles (V3 with Delay) --- */
+
+        .btn-primary:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            border-color: rgba(255, 255, 255, 0.4);
+        }
+
+        .btn-glow {
+            background: var(--primary-gradient);
+            border: none;
+            box-shadow: 0 4px 15px rgba(118, 75, 162, 0.4);
+        }
+
+        .btn-glow:hover {
+            box-shadow: 0 0 30px rgba(118, 75, 162, 0.6);
+            transform: translateY(-3px) scale(1.05);
+        }
+
+        /* --- Glass Cards (Features) --- */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin: 60px 0;
+            padding: 0 20px;
+        }
+
+        .glass-card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 40px 30px;
+            box-shadow: var(--glass-shadow);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            transition: transform 0.4s ease, border-color 0.4s ease;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .glass-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+            transition: 0.5s;
+        }
+
+        .glass-card:hover::before {
+            left: 100%;
+        }
+
+        .glass-card:hover {
+            transform: translateY(-10px);
+            border-color: rgba(255,255,255,0.3);
+        }
+
+        .card-icon {
+            font-size: 3rem;
+            margin-bottom: 25px;
+            background: var(--secondary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: inline-block;
+        }
+
+        .glass-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: #fff;
+        }
+
+        .glass-card p {
+            color: var(--text-muted);
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        /* --- Pricing Section --- */
+        .section-title {
+            text-align: center;
+            margin: 80px 0 40px;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            background: linear-gradient(to right, #00c6ff, #0072ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .pricing-container {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            margin-bottom: 60px;
+        }
+
+        .pricing-card {
+            background: rgba(20, 20, 30, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 30px;
+            padding: 40px;
+            width: 350px;
+            text-align: center;
+            position: relative;
+            transition: all 0.4s;
+            backdrop-filter: blur(20px);
+        }
+
+        .pricing-card.popular {
+            background: rgba(30, 30, 50, 0.8);
+            border: 1px solid var(--accent-color);
+            box-shadow: 0 0 30px rgba(0, 210, 255, 0.15);
+            transform: scale(1.05);
+            z-index: 2;
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-10px) scale(1.02);
+        }
+
+        .pricing-card.popular:hover {
+            transform: translateY(-10px) scale(1.08);
+        }
+
+        .plan-duration {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .plan-price {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: #fff;
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .old-price {
+            font-size: 1.2rem;
+            color: #666;
+            text-decoration: line-through;
+            font-weight: 400;
+        }
+
+        .features-list {
+            margin-bottom: 30px;
+            text-align: right;
+        }
+
+        .features-list li {
+            margin-bottom: 12px;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .features-list li i {
+            color: var(--accent-color);
+        }
+
+        .flags {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin: 20px 0;
+        }
+
+        .flags img {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid rgba(255,255,255,0.2);
+            transition: transform 0.3s;
+        }
+        
+        .flags img:hover { transform: scale(1.2); }
+
+        .badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: var(--accent-color);
+            color: #000;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            box-shadow: 0 0 10px var(--accent-color);
+        }
+
+        /* --- Footer --- */
+        footer {
+            border-top: 1px solid rgba(255,255,255,0.05);
+            padding: 40px 20px;
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-top: 50px;
+            background: rgba(0,0,0,0.2);
+            backdrop-filter: blur(10px);
+        }
+
+        /* --- Animations --- */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* --- Mobile --- */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.2rem; }
+            .pricing-card.popular { transform: scale(1); }
+            .pricing-card.popular:hover { transform: translateY(-10px); }
+            .hero p { padding: 0 10px; }
+        }
     </style>
 </head>
 <body>
 
-    <div class="discount-banner">
-        <span>🎁 ۵۰٪ تخفیف ویژه، فقط برای امروز! <strong>از دست ندهید!</strong></span>
-        <button class="close-banner" aria-label="بستن">&times;</button>
+    <!-- Animated Background Background -->
+    <div class="bg-animation">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
     </div>
-    <header class="hero-section">
-        <img src="logo.png" alt="VPNLike Logo" class="hero-logo">
-        <h1>اینترنت <span>بدون مرز</span> با VPNLike</h1>
-        <p>
-            با سرویس‌های اختصاصی و پرسرعت ما، با امنیت کامل و بدون هیچ محدودیتی به دنیای اینترنت متصل شوید.
-        </p>
-        <div class="hero-actions">
-            <a href="#pricing" class="btn btn-blue">خرید اشتراک عادی ←</a>
-            <a href="#private-ip" class="btn btn-purple">خرید آی پی ثابت ←</a>
-            <a href="https://t.me/vpnlikebot?start=ga" target="_blank" class="btn btn-green"> تست رایگان ←</a>
-            <a href="https://t.me/vpnlikebot?start=ga" target="_blank" class="btn btn-orange">🎁 گردونه شانس ←</a>
-        </div>
-    </header>
 
-    <main class="container">
-
-        <section class="info-grid">
-            <a href="https://t.me/vpnlikebot?start=ga" target="_blank" class="info-card">
-                <div class="icon">🎁</div>
-                <h3>جایزه وفاداری</h3>
-                <p>با هر خرید، شانس خود را برای دریافت هدیه و تخفیف‌های ویژه در خرید‌های بعدی افزایش دهید.</p>
-                <span class="card-action">ورود به ربات ←</span>
-            </a>
-            <a href="https://t.me/vpnlikebot?start=ga" target="_blank" class="info-card">
-                <div class="icon">🔗</div>
-                <h3>راهنمای اتصال</h3>
-                <p>آموزش‌های گام‌به‌گام برای اتصال آسان و سریع در تمامی دستگاه‌ها و سیستم‌عامل‌ها.</p>
-                <span class="card-action">ورود به ربات ←</span>
-            </a>
-            <a href="https://t.me/vpnlikebot?start=ga" target="_blank" class="info-card">
-                <div class="icon">🤝</div>
-                <h3>پشتیبانی ویژه</h3>
-                <p>تیم پشتیبانی متخصص ما ۲۴ ساعته و در ۷ روز هفته آماده پاسخگویی به شماست.</p>
-                <span class="card-action">ورود به ربات ←</span>
-            </a>
-        </section>
-
-        <section id="pricing">
-            <div class="section-title">
-                <h2>سرویس VIP</h2>
-                <p>پرسرعت و نامحدود، سازگار با تمام دستگاه‌ها مناسب استفاده روزمره</p>
+    <!-- Navigation -->
+    <div class="container">
+        <header>
+            <div class="logo">
+                <img src="logo.png" alt="Logo" class="brand-logo">
             </div>
-            <div class="pricing-grid">
-                <div class="product-card">
-                    <div class="plan-name">۱ <span>ماهه</span></div>
-                    <ul class="features"><li>۲ کاربر همزمان</li><li>حجم نامحدود</li><li>پشتیبانی کامل</li></ul>
-                    <div class="price-wrapper">
-                        <span class="old-price">۲۵۰ هزار تومان</span>
-                        <span class="new-price">۱۲۵ <span class="small-text">هزار تومان</span></span>
-                    </div>
-                    <a href="https://t.me/vpnlikebot?start=ga" target="_blank" class="btn btn-blue">خرید آنلاین</a>
-                </div>
-                <div class="product-card">
-                    <div class="badge-ribbon"><span>پیشنهاد ویژه</span></div>
-                    <div class="plan-name">۳ <span>ماهه</span></div>
-                    <ul class="features"><li>۲ کاربر همزمان</li><li>حجم نامحدود</li><li>پشتیبانی کامل</li></ul>
-                    <div class="price-wrapper">
-                        <span class="old-price">۶۰۰ هزار تومان</span>
-                        <span class="new-price">۳۰۰ <span class="small-text">هزار تومان</span></span>
-                    </div>
-                    <a href="https://t.me/vpnlikebot?start=ga" target="_blank" class="btn btn-blue">خرید آنلاین</a>
-                </div>
-            </div>
-        </section>
+            <!-- Simple Nav could go here if needed -->
+        </header>
 
-        <section id="private-ip">
-            <div class="section-title">
-                <h2>سرویس Private (آی پی ثابت)</h2>
-                <p>پرسرعت و نامحدود و ایده‌آل برای ترید، صرافی‌ها و کاربرانی که به آی‌پی ثابت نیاز دارند و همچنین استفاده روزمره</p>
-            </div>
-            <div class="pricing-grid">
-                <div class="product-card">
-                    <div class="plan-name">۱ <span>ماهه</span></div>
-                    <div class="country-flags">
-                        <img src="germany.png" alt="Germany"><img src="france.png" alt="France"><img src="turkey.png" alt="Turkey"><img src="usa.png" alt="USA">
-                    </div>
-                    <ul class="features"><li>آی پی ثابت</li><li>آی پی اختصاصی</li><li>۲ کاربر همزمان</li><li>حجم نامحدود</li></ul>
-                    <div class="price-wrapper">
-                        <span class="old-price">۳۵۰ هزار تومان</span>
-                        <span class="new-price">۱۷۵ <span class="small-text">هزار تومان</span></span>
-                    </div>
-                     <a href="https://t.me/vpnlikebot?start=ga" target="_blank" class="btn btn-blue">خرید آنلاین</a>
-                </div>
-                <div class="product-card">
-                    <div class="badge-ribbon"><span>پیشنهاد ویژه</span></div>
-                    <div class="plan-name">۳ <span>ماهه</span></div>
-                    <div class="country-flags">
-                        <img src="germany.png" alt="Germany"><img src="france.png" alt="France"><img src="turkey.png" alt="Turkey"><img src="usa.png" alt="USA">
-                    </div>
-                    <ul class="features"><li>آی پی ثابت</li><li>آی پی اختصاصی</li><li>۲ کاربر همزمان</li><li>حجم نامحدود</li></ul>
-                    <div class="price-wrapper">
-                        <span class="old-price">۸۵۰ هزار تومان</span>
-                        <span class="new-price">۴۲۵ <span class="small-text">هزار تومان</span></span>
-                    </div>
-                     <a href="https://t.me/vpnlikebot?start=ga" target="_blank" class="btn btn-blue">خرید آنلاین</a>
-                </div>
-            </div>
-        </section>
-
-        <section id="reseller">
-             <div class="section-title">
-                <h2>نمایندگی</h2>
-                <p>با فروش سرویس‌های ما به درآمد برسید</p>
-            </div>
-            <div class="pricing-grid single-item-grid">
-                <div class="product-card">
-                    <div class="plan-name" style="font-size: 1.8rem;">پنل نمایندگی</div>
-                    <ul class="features"><li class="special-feature">سود شما: ۲ میلیون تومان</li><li>۳۰ اکانت تک کاربر</li><li>هر اکانت ۵۰ گیگابایت</li><li>آی‌پی ثابت</li></ul>
-                    <div class="price-wrapper">
-                        <span class="old-price">۱۰۰ تومان / هر اکانت</span>
-                        <span class="new-price">۵۰ <span class="small-text">تومان / هر اکانت</span></span>
-                    </div>
-                    <a href="https://t.me/vpnlikebot?start=ga" target="_blank" class="btn btn-orange">دریافت پنل</a>
-                </div>
-            </div>
-        </section>
-
-    </main>
-
-    <footer class="site-footer">
-        <div class="container">
-            <div class="footer-tag">اعتماد شما، سرمایه ما</div>
-            <h2>چرا وی پی ان لایک؟</h2>
-            <p class="description">
-                با بیش از ۱۵ سال سابقه درخشان، ما به انتخاب اول کاربران ایرانی برای دسترسی امن و آزاد به اینترنت تبدیل شده‌ایم.
+        <!-- Hero Section -->
+        <section class="hero">
+            <h1>دنیایی بدون مرز، <br> سرعتی بی نهایت</h1>
+            <p>
+                تجربه‌ای متفاوت از اینترنت آزاد و ایمن. دسترسی به تمام محتوای جهانی با بالاترین سرعت و پایداری. بدون قطعی، بدون محدودیت.
             </p>
-            <ul class="footer-features">
-                <li><b>سرورهای جهانی:</b> بیش از ۳۰۰۰ سرور اختصاصی در بهترین دیتاسنترها.</li>
-                <li><b>تنوع سرویس:</b> ارائه تمامی پروتکل‌های معتبر VPN با تنظیمات پیشرفته.</li>
-                <li><b>اکانت‌های بهینه:</b> دو کاربر همزمان، بدون محدودیت حجمی.</li>
-                <li><b>امنیت فوق‌العاده:</b> رمزنگاری ۲۵۶ بیتی برای تضمین حریم خصوصی شما.</li>
-            </ul>
+            <div class="cta-group">
+                <a href="https://t.me/vpnlikebot?start=ga" class="btn btn-glow">
+                    <i class="fab fa-telegram-plane"></i>
+                    شروع رایگان
+                </a>
+                <a href="#plans" class="btn btn-primary">
+                    مشاهده پلن‌ها
+                </a>
+            </div>
+        </section>
+
+        <!-- Value Proposition -->
+        <div class="features-grid">
+            <div class="glass-card">
+                <div class="card-icon"><i class="fas fa-rocket"></i></div>
+                <h3>سرعت نور</h3>
+                <p>استفاده از سرورهای اختصاصی و تکنولوژی‌های مدرن برای کمترین پینگ و بالاترین پهنای باند.</p>
+            </div>
+            <div class="glass-card">
+                <div class="card-icon"><i class="fas fa-shield-alt"></i></div>
+                <h3>امنیت حداکثری</h3>
+                <p>تمامی داده‌های شما رمزنگاری شده و حریم خصوصی شما اولویت اصلی ماست.</p>
+            </div>
+            <div class="glass-card">
+                <div class="card-icon"><i class="fas fa-globe"></i></div>
+                <h3>دسترسی جهانی</h3>
+                <p>اتصال به سرورهای قدرتمند در کشورهای مختلف برای دسترسی به محتوای محلی و جهانی.</p>
+            </div>
         </div>
-    </footer>
 
+        <!-- Pricing Section -->
+        <section id="plans">
+            <div class="section-title">
+                <h2>پلن‌های اشتراک ویژه</h2>
+                <p>بهترین گزینه را برای خود انتخاب کنید</p>
+            </div>
 
-    <div id="sticky-test-banner" class="sticky-bottom-banner">
-        <div class="banner-wrapper">
-            <button id="close-sticky-banner" class="close-banner-btn" aria-label="بستن بنر">&times;</button>
-            <div class="banner-content">
-                <div class="banner-icon">🚀</div>
-                <div class="banner-text">
-                    <h4>میخوای قبل از خرید تست کنی؟</h4>
-                    <p>همین حالا رایگان امتحان کن!</p>
+            <div class="pricing-container">
+                <!-- Standard Plan -->
+                <div class="pricing-card">
+                    <span class="plan-duration">سرویس VIP ۱ ماهه</span>
+                    <div class="plan-price">
+                        <span class="old-price">۲۵۰</span>
+                        ۱۲۵ <span style="font-size: 1rem; font-weight: 400; color:var(--text-muted)">هزار تومان</span>
+                    </div>
+                    <ul class="features-list">
+                        <li><i class="fas fa-check"></i> اتصال نامحدود و پایدار</li>
+                        <li><i class="fas fa-check"></i> ۲ کاربر همزمان</li>
+                        <li><i class="fas fa-check"></i> پشتیبانی ۲۴ ساعته</li>
+                    </ul>
+                    <a href="https://t.me/vpnlikebot?start=ga" class="btn btn-primary" style="width:100%; justify-content:center;">خرید آنلاین</a>
+                </div>
+
+                <!-- Popular Plan -->
+                <div class="pricing-card popular">
+                    <div class="badge">پیشنهاد ویژه</div>
+                    <span class="plan-duration">سرویس VIP ۳ ماهه</span>
+                    <div class="plan-price">
+                        <span class="old-price">۶۰۰</span>
+                        ۳۰۰ <span style="font-size: 1rem; font-weight: 400; color:var(--text-muted)">هزار تومان</span>
+                    </div>
+                    <ul class="features-list">
+                        <li><i class="fas fa-check"></i> <b>تخفیف ویژه زمانی</b></li>
+                        <li><i class="fas fa-check"></i> اتصال به تمام لوکیشن‌ها</li>
+                        <li><i class="fas fa-check"></i> ۲ کاربر همزمان</li>
+                        <li><i class="fas fa-check"></i> حجم نامحدود</li>
+                    </ul>
+                    <a href="https://t.me/vpnlikebot?start=ga" class="btn btn-glow" style="width:100%; justify-content:center;">خرید با تخفیف</a>
                 </div>
             </div>
-            <a href="https://t.me/vpnlikebot?start=ga" target="_blank" class="banner-cta-btn">
-                <i class="fas fa-bolt"></i> دریافت تست رایگان
-            </a>
-        </div>
+
+            <!-- Static IP Section -->
+             <div class="section-title">
+                <h2>سرویس‌های اختصاصی (Static IP)</h2>
+                <p>مناسب برای ترید و کارهای حساس بانکی</p>
+            </div>
+
+            <div class="pricing-container">
+                <div class="pricing-card">
+                    <span class="plan-duration">۱ ماهه - اختصاصی</span>
+                    <div class="flags">
+                        <img src="germany.png" alt="DE">
+                        <img src="france.png" alt="FR">
+                        <img src="turkey.png" alt="TR">
+                        <img src="usa.png" alt="US">
+                    </div>
+                    <div class="plan-price">
+                        <span class="old-price">۳۵۰</span>
+                        ۱۷۵ <span style="font-size: 1rem; font-weight: 400; color:var(--text-muted)">هزار تومان</span>
+                    </div>
+                    <ul class="features-list">
+                        <li><i class="fas fa-check"></i> آی‌پی ثابت و اختصاصی</li>
+                        <li><i class="fas fa-check"></i> مناسب برای بایننس و صرافی‌ها</li>
+                        <li><i class="fas fa-check"></i> کیل سوییچ امنیتی</li>
+                    </ul>
+                    <a href="https://t.me/vpnlikebot?start=ga" class="btn btn-primary" style="width:100%; justify-content:center;">سفارش دهید</a>
+                </div>
+
+                <div class="pricing-card">
+                    <div class="badge">محبوب تریدرها</div>
+                    <span class="plan-duration">۳ ماهه - اختصاصی</span>
+                    <div class="flags">
+                        <img src="germany.png" alt="DE">
+                        <img src="france.png" alt="FR">
+                        <img src="turkey.png" alt="TR">
+                        <img src="usa.png" alt="US">
+                    </div>
+                    <div class="plan-price">
+                         <span class="old-price">۸۵۰</span>
+                        ۴۲۵ <span style="font-size: 1rem; font-weight: 400; color:var(--text-muted)">هزار تومان</span>
+                    </div>
+                    <ul class="features-list">
+                        <li><i class="fas fa-check"></i> پایداری بسیار بالا</li>
+                        <li><i class="fas fa-check"></i> سرعت تضمین شده</li>
+                        <li><i class="fas fa-check"></i> پشتیبانی VIP</li>
+                    </ul>
+                    <a href="https://t.me/vpnlikebot?start=ga" class="btn btn-primary" style="width:100%; justify-content:center;">سفارش دهید</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer>
+            <p>تمامی حقوق محفوظ است. طراحی و توسعه برای دسترسی آزاد.</p>
+            <p style="margin-top: 10px; opacity: 0.6; font-size: 0.8rem;">ارتباط با ما از طریق تلگرام</p>
+        </footer>
     </div>
 
-    <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        // --- کد مربوط به بنر چسبان پایین صفحه (تست رایگان) ---
-        const stickyBanner = document.getElementById('sticky-test-banner');
-        const closeBannerBtn = document.getElementById('close-sticky-banner');
-
-        // نمایش بنر پس از 2 ثانیه
-        if (stickyBanner) {
-            setTimeout(function() {
-                stickyBanner.classList.add('is-visible');
-            }, 4000); // 2000 میلی‌ثانیه = 2 ثانیه
-        }
-
-        // مخفی کردن بنر با کلیک روی دکمه بستن
-        if (closeBannerBtn && stickyBanner) {
-            closeBannerBtn.addEventListener('click', function() {
-                stickyBanner.classList.remove('is-visible');
-            });
-        }
-        
-        // --- START: کد جدید برای بستن بنر تخفیف بالای صفحه ---
-        const topBanner = document.querySelector('.discount-banner');
-        const closeTopBannerBtn = document.querySelector('.discount-banner .close-banner');
-
-        if (closeTopBannerBtn && topBanner) {
-            closeTopBannerBtn.addEventListener('click', function() {
-                topBanner.style.display = 'none';
-            });
-        }
-        // --- END: کد جدید ---
-    });
-    </script>
-    
 </body>
 </html>
