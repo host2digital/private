@@ -521,6 +521,26 @@
             box-shadow: 0 4px 15px rgba(225, 112, 85, 0.3);
         }
 
+        /* Messages or Footer font */
+        .footer-text {
+            font-family: 'IRANSansWeb', sans-serif;
+            font-weight: 300;
+            font-size: 1.1rem;
+            text-align: center;
+            padding: 40px 20px 140px;
+            /* Extra padding at bottom for sticky banner */
+            color: var(--text-medium);
+            background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.5), transparent);
+            margin-top: 40px;
+        }
+
+        .footer-text span {
+            background: -webkit-linear-gradient(45deg, #6c5ce7, #fd79a8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 700;
+        }
+
         /* --- Animations --- */
         @keyframes slideDown {
             from {
@@ -693,7 +713,7 @@
         </section>
 
         <!-- Reseller Section -->
-        <section style="margin-bottom: 280px;">
+        <section style="margin-bottom: 20px;">
             <div class="section-title">
                 <h2>پنل همکاری و نمایندگی</h2>
                 <p>شروع قدرتمند کسب و کار شما</p>
@@ -721,6 +741,12 @@
             </div>
         </section>
 
+    </div>
+
+    <!-- Footer -->
+    <div class="footer-text">
+        <p>طراحی شده با <span>عشق</span> برای تجربه اینترنتی آزاد</p>
+        <p style="font-size: 0.9rem; margin-top: 10px; opacity: 0.7;">© 2025 All Rights Reserved</p>
     </div>
 
     <!-- Sticky Bottom Banner -->
