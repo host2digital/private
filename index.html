@@ -190,6 +190,17 @@
             justify-content: center;
         }
 
+        .pricing-cols-1 {
+            display: flex;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        .pricing-cols-1 .glass-card {
+            width: 100%;
+            max-width: 480px;
+        }
+
         /* --- Product Card Content --- */
         .plan-header {
             margin-bottom: 20px;
@@ -295,6 +306,17 @@
 
         .btn-blue:hover {
             background: #0b5ed7;
+        }
+
+        .btn-orange {
+            background: linear-gradient(135deg, #fbc531 0%, #e1b12c 100%);
+            color: white;
+            box-shadow: 0 4px 15px rgba(225, 177, 44, 0.3);
+        }
+
+        .btn-orange:hover {
+            background: #d4a218;
+            transform: translateY(-2px);
         }
 
         .btn-outline {
@@ -648,6 +670,45 @@
                         <li><i class="fas fa-server"></i> پایداری ۹۹.۹٪</li>
                     </ul>
                     <button onclick="startBot()" class="btn btn-outline">سفارش دهید</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Wholesale Section -->
+        <section id="wholesale">
+            <div class="section-title">
+                <h2>فروش عمده (Wholesale)</h2>
+                <p>ویژه سازمان‌ها و همکاران</p>
+            </div>
+
+            <div class="pricing-cols-1">
+                <div class="glass-card" style="text-align:center;">
+                    <div class="plan-header" style="border-bottom:none;">
+                        <span class="plan-title" style="font-size: 2.2rem; display:block; margin-bottom:5px;">فروش
+                            عمده</span>
+                        <span style="color: #e1b12c; font-size: 1rem; font-weight:600;">ویژه سازمان‌ها و همکاران</span>
+                    </div>
+
+                    <div style="margin: 20px 0;">
+                        <span style="font-size: 3.5rem; font-weight: 800; color: #2d3436; line-height:1;">۸۰</span>
+                        <div style="font-size: 1.1rem; color: #636e72; margin-top:5px;">تومان / هر اکانت</div>
+                    </div>
+
+                    <ul class="features-list" style="display: inline-block; text-align: right; margin: 20px auto 40px;">
+                        <li style="font-size: 1.1rem; margin-bottom:15px;"><i class="fas fa-check"
+                                style="color:#2ecc71;"></i> یک ماهه</li>
+                        <li style="font-size: 1.1rem; margin-bottom:15px;"><i class="fas fa-check"
+                                style="color:#2ecc71;"></i> ۳۰ اکانت تک کاربر</li>
+                        <li style="font-size: 1.1rem; margin-bottom:15px;"><i class="fas fa-check"
+                                style="color:#2ecc71;"></i> هر اکانت ۵۰ گیگ</li>
+                    </ul>
+
+                    <div style="display: flex; flex-direction: column; gap: 15px;">
+                        <button onclick="startBot()" class="btn btn-orange" style="font-size:1.1rem;">خرید با ارز
+                            دیجیتال</button>
+                        <button onclick="startBot()" class="btn btn-blue" style="font-size:1.1rem;">خرید از
+                            تلگرام</button>
+                    </div>
                 </div>
             </div>
         </section>
